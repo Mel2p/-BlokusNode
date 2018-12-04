@@ -14,7 +14,6 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/Blokus');
 var db = mongoose.connection;
 
-var routes = require('./routes/index');
 var users = require('./routes/users');
 var test = require('./routes/test')
 
@@ -28,7 +27,7 @@ app.set('view engine', 'handlebars');
 
 // BodyParser Middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Set Static Folder
@@ -39,7 +38,7 @@ app.use(session({
     secret: 'secret',
     saveUninitialized: true,
     resave: true
-}));
+})); 
 
 // Passport init
 app.use(passport.initialize());
@@ -77,7 +76,6 @@ app.use(function (req, res, next) {
 
 
 
-app.use('/', routes);
 app.use('/users', users);
 app.use('/test', test);
 
